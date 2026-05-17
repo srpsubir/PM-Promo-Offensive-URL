@@ -193,7 +193,7 @@ export default function Questionnaire({ state, setState }) {
             ref={inputRef}
             type="text"
             value={customInput}
-            placeholder="e.g. Weekly active rate, Revenue per seat..."
+            placeholder="e.g. Optimised AWS database query latency"
             onChange={e => setCustomInput(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') addCustom(); }}
           />

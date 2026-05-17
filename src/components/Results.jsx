@@ -1,5 +1,6 @@
 // MAV-36 — Results page
 // Render order is locked per handoff doc
+import { useState } from 'react';
 import { MODELS, DOMAINS, PL, N } from '../content';
 
 function trackEvent(name, props = {}) {
@@ -11,18 +12,25 @@ function trackEvent(name, props = {}) {
 }
 
 export default function Results({ state, setState }) {
+  const [copied, setCopied] = useState(false);
+
   const mLabel = MODELS.find(m => m.id === state.model)?.title || state.model;
   const dLabel = DOMAINS.find(d => d.id === state.domain)?.title || state.domain;
   const content = N[state.model]?.[state.domain];
   const nodes = PL[state.model] || [];
   const hl = content?.hl || [];
 
-  // Fire analytics once on mount
-  // (useEffect not needed — render fires once per results view in this single-state app)
-
   const restart = () => setState({
     step: 1, model: null, b2b: null, domain: null, metrics: [], email: '',
   });
+
+  const copyScript = () => {
+    const text = content?.exec || '';
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   return (
     <div className="results">
@@ -48,6 +56,9 @@ export default function Results({ state, setState }) {
         <div className="exec-hero-lbl">Say this in your next exec review</div>
         <div className="exec-hero-text">"{content?.exec || ''}"</div>
         <div className="exec-hero-hint">Replace the bracketed placeholders with your actual numbers. This is how you show your exec that your roadmap is directly relieving the pressure they are accountable for.</div>
+        <button className="exec-copy-btn" onClick={copyScript}>
+          {copied ? '✓ Copied' : 'Copy script'}
+        </button>
       </div>
 
       {/* 6. Promo banner */}
@@ -107,6 +118,20 @@ export default function Results({ state, setState }) {
       <div style={{ marginTop: '20px', textAlign: 'center' }}>
         <button className="btn btn-ghost" onClick={restart}>Try a different profile</button>
       </div>
+
+      {/* Sticky mobile CTA */}
+      <div className="sticky-mobile-cta">
+        <a
+          href="https://maven.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none', flex: 1 }}
+          onClick={() => trackEvent('CTA Clicked')}
+        >
+          <button className="btn btn-lg" style={{ width: '100%' }}>Explore the PM Promotion Offensive</button>
+        </a>
+      </div>
+
     </div>
   );
 }
