@@ -1,22 +1,20 @@
 const STEP_LABELS = {
-  1: 'Business model',
-  2: 'Customer type',
-  3: 'Product domain',
+  1: 'Model',
+  2: 'Context',
+  3: 'Domain',
   4: 'Metrics',
-  5: 'Your results',
+  5: 'Unlock',
 };
 
-export default function StepDots({ current, total }) {
+export default function StepDots({ current, total = 5 }) {
   return (
     <div className="step-dots">
-      <div className="step-dots__track">
-        {Array.from({ length: total }, (_, i) => {
-          const n = i + 1;
-          const state = n < current ? 'done' : n === current ? 'active' : 'upcoming';
-          return <span key={n} className={`step-dot step-dot--${state}`} />;
-        })}
-      </div>
-      <p className="step-dots__label">Step {current} of {total} — {STEP_LABELS[current]}</p>
+      {Array.from({ length: total }, (_, i) => {
+        const n = i + 1;
+        const cls = n < current ? 'step-dot done' : n === current ? 'step-dot active' : 'step-dot';
+        return <div key={n} className={cls} />;
+      })}
+      <span className="step-dot-label">Step {current} of {total} — {STEP_LABELS[current] || ''}</span>
     </div>
   );
 }
