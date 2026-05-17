@@ -26,8 +26,8 @@ body { font-family: var(--font); font-size: 16px; background: var(--bg); color: 
 /* STEPS */
 .step { animation: up .3s ease; }
 @keyframes up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.step-h   { font-family: var(--font-head); font-size: 28px; font-weight: 700; letter-spacing: -.01em; line-height: 1.25; margin-bottom: 8px; color: var(--text); }
-.step-sub { font-size: 15px; color: var(--text-2); margin-bottom: 36px; max-width: 520px; line-height: 1.65; }
+.step-h   { font-family: var(--font-head); font-size: 28px; font-weight: 700; letter-spacing: -.01em; line-height: 1.25; margin-bottom: 8px; color: var(--text); text-wrap: balance; }
+.step-sub { font-size: 15px; color: var(--text-2); margin-bottom: 36px; max-width: 520px; line-height: 1.65; text-wrap: balance; }
 
 /* CARDS */
 .grid   { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin-bottom: 28px; }
@@ -93,8 +93,8 @@ input::placeholder      { color: var(--text-3); }
 .tag        { background: var(--surface-up); border: 1px solid var(--border); border-radius: 100px; padding: 4px 12px; font-size: 11px; color: var(--text-2); font-weight: 600; }
 .tag.a      { background: var(--accent-tag); border-color: var(--accent-border); color: var(--accent); }
 .r-eyebrow  { font-size: 12px; font-weight: 700; color: var(--accent-mid); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
-.r-title    { font-family: var(--font-head); font-size: 30px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; margin-bottom: 8px; color: var(--text); }
-.r-sub      { font-size: 17px; color: #1e293b; margin-bottom: 32px; line-height: 1.65; }
+.r-title    { font-family: var(--font-head); font-size: 30px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; margin-bottom: 8px; color: var(--text); text-wrap: balance; }
+.r-sub      { font-size: 17px; color: #1e293b; margin-bottom: 32px; line-height: 1.65; text-wrap: balance; }
 
 /* EXEC HERO */
 .exec-hero      { background: #4361EE; border-radius: var(--r-lg); padding: 32px; margin-bottom: 24px; color: #fff; }

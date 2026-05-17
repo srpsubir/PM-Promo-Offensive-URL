@@ -100,7 +100,7 @@ export default function Results({ state, setState }) {
         <h3>Ready to use this to get promoted?</h3>
         <p>The PM Promotion Offensive teaches you to understand your exec's commercial pressures, align your roadmap to relieve them, and build the trust that leads to promotion.</p>
         <a
-          href="https://maven.com"
+          href="https://maven.com/maverick-silver/pm-promo-offensive"
           target="_blank"
           rel="noopener noreferrer"
           style={{ textDecoration: 'none' }}
@@ -122,7 +122,7 @@ export default function Results({ state, setState }) {
       {/* Sticky mobile CTA */}
       <div className="sticky-mobile-cta">
         <a
-          href="https://maven.com"
+          href="https://maven.com/maverick-silver/pm-promo-offensive"
           target="_blank"
           rel="noopener noreferrer"
           style={{ textDecoration: 'none', flex: 1 }}
