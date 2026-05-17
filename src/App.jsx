@@ -59,6 +59,12 @@ export default function App() {
         <div className="step-info">{stepInfoMap[state.step] || ''}</div>
       </header>
 
+      {state.step !== 'results' && (
+        <div className="proof-strip">
+          ⭐ <strong>5.0 on Maven</strong> &nbsp;·&nbsp; 22 PMs enrolled &nbsp;·&nbsp; Vimeo, Zalando and others
+        </div>
+      )}
+
       <main className="main">
         {state.step === 'results'
           ? <Results state={state} setState={setState} />

@@ -112,7 +112,7 @@ export default function Results({ state, setState }) {
           <div className="cta-testimonial-text">"The in-depth, real-time feedback discussions were the highlight for me. Both Leland and Subir are excellent instructors."</div>
           <div className="cta-testimonial-attr">Tanvi &nbsp;·&nbsp; 10/10 on Maven</div>
         </div>
-        <div className="cta-trust">PMs from Vimeo and Zalando have enrolled &nbsp;·&nbsp; PM Promotion Offensive</div>
+        <div className="cta-trust">⭐ 5.0 on Maven &nbsp;·&nbsp; 22 PMs enrolled &nbsp;·&nbsp; Vimeo, Zalando and others</div>
       </div>
 
       <div style={{ marginTop: '20px', textAlign: 'center' }}>

@@ -247,8 +247,8 @@ export const N = {
 };
 
 export const SOCIAL = {
-  1: `Used by PMs at <strong>Vimeo</strong>, <strong>Zalando</strong> and 20 others.`,
-  2: `Most PMs have never asked which P&L line their exec is accountable for. This diagnostic answers it.`,
+  1: `<strong>22 PMs</strong> from <strong>Vimeo</strong>, <strong>Zalando</strong> and others have used this. Rated <strong>5.0 on Maven</strong>.`,
+  2: `Most senior PMs have strong execution skills. The gap is executive empathy — knowing which P&L pressure your exec is accountable for. This diagnostic closes that gap.`,
   3: `PMs at Vimeo and Zalando said this was the question nobody had asked them directly.`,
   4: `The metric you name here is the bridge between your daily work and your exec's biggest pressure.`,
 };
