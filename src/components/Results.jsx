@@ -41,7 +41,7 @@ export default function Results({ state, setState }) {
       <h1 className="r-title">Here is how your work maps to what your exec is accountable for.</h1>
 
       {/* 4. Subhead */}
-      <p className="r-sub">Every exec has P&L lines they are responsible for moving. This shows you which ones your product work touches, and how to make that visible to them.</p>
+      <p className="r-sub">Your exec is just like your users. They have needs too. Their job is to move specific lines on the company P&L. When your roadmap visibly relieves that pressure, they notice. That is how trust builds. That is what leads to promotion. Below is which lines your work touches.</p>
 
       {/* 5. Exec hero block */}
       <div className="exec-hero">

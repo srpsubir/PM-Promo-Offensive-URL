@@ -1,7 +1,7 @@
 @import './tokens.css';
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+body { font-family: var(--font); font-size: 16px; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; line-height: 1.6; }
 
 /* PROGRESS BAR */
 #progress-track { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: var(--border); z-index: 998; }
@@ -99,7 +99,7 @@ input::placeholder      { color: var(--text-3); }
 /* EXEC HERO */
 .exec-hero      { background: var(--accent); border-radius: var(--r-lg); padding: 32px; margin-bottom: 24px; color: #fff; }
 .exec-hero-lbl  { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .7; margin-bottom: 14px; }
-.exec-hero-text { font-family: var(--font-head); font-size: 19px; font-weight: 700; line-height: 1.55; letter-spacing: -.01em; font-style: italic; }
+.exec-hero-text { font-family: var(--font-head); font-size: 21px; font-weight: 700; line-height: 1.55; letter-spacing: -.01em; font-style: italic; }
 .exec-hero-hint { font-size: 12px; opacity: .65; margin-top: 14px; line-height: 1.5; }
 
 /* PROMO BANNER */
@@ -125,7 +125,7 @@ input::placeholder      { color: var(--text-3); }
 /* NARRATIVE */
 .narr-wrap  { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
 .narr-lbl   { font-size: 11px; font-weight: 700; color: var(--text-3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 14px; }
-.narr-text  { font-size: 14px; line-height: 1.8; color: var(--text-2); }
+.narr-text  { font-size: 15px; line-height: 1.8; color: var(--text-2); }
 
 /* CTA */
 .cta            { background: var(--surface); border: 1.5px solid var(--accent-border); border-radius: var(--r-lg); padding: 32px; text-align: center; box-shadow: 0 2px 8px rgba(37,99,235,.08); }
