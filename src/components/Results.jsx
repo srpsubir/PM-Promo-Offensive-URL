@@ -15,13 +15,13 @@ export default function Results({ state, setState }) {
   const [copied, setCopied] = useState(false);
 
   const mLabel = MODELS.find(m => m.id === state.model)?.title || state.model;
-  const dLabel = DOMAINS.find(d => d.id === state.domain)?.title || state.domain;
-  const content = N[state.model]?.[state.domain];
+  const primaryDomain = Array.isArray(state.domain) ? state.domain[0] : state.domain;
+  const content = N[state.model]?.[primaryDomain];
   const nodes = PL[state.model] || [];
   const hl = content?.hl || [];
 
   const restart = () => setState({
-    step: 1, model: null, b2b: null, domain: null, metrics: [], email: '',
+    step: 1, model: null, b2b: null, domain: [], metrics: [], email: '',
   });
 
   const copyScript = () => {
@@ -38,7 +38,10 @@ export default function Results({ state, setState }) {
       {/* 1. Tags row */}
       <div className="r-tags">
         <span className="tag a">{mLabel}</span>
-        <span className="tag a">{dLabel}</span>
+        {(Array.isArray(state.domain) ? state.domain : [state.domain]).map(d => {
+          const label = DOMAINS.find(dom => dom.id === d)?.title || d;
+          return <span key={d} className="tag a">{label}</span>;
+        })}
         {state.metrics.map(m => <span key={m} className="tag">{m}</span>)}
       </div>
 

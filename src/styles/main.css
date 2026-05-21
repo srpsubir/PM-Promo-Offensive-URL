@@ -50,6 +50,7 @@ body { font-family: var(--font); font-size: 16px; background: var(--bg); color: 
 .pill       { background: var(--surface); border: 1.5px solid var(--border); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--text-2); cursor: pointer; transition: all .15s ease; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
 .pill:hover { border-color: var(--accent-border); color: var(--accent); background: var(--accent-light); }
 .pill.sel   { border-color: var(--accent-mid); background: var(--accent-light); color: var(--accent); }
+.metrics-group-label { font-size: 11px; font-weight: 700; color: var(--text-3); letter-spacing: .08em; text-transform: uppercase; margin: 16px 0 8px; }
 .pill-label { font-size: 11px; color: var(--text-3); margin-bottom: 8px; margin-top: 20px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
 .pill-remove       { cursor: pointer; margin-left: 5px; opacity: .7; font-size: 14px; line-height: 1; }
 .pill-remove:hover { opacity: 1; }
