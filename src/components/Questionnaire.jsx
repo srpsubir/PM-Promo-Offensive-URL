@@ -11,6 +11,9 @@ function trackEvent(name, props = {}) {
   }
 }
 
+// All standard metrics across every domain (for custom metric detection)
+const ALL_STANDARD_METRICS = new Set(Object.values(METRICS).flat());
+
 export default function Questionnaire({ state, setState }) {
   const [customInput, setCustomInput] = useState('');
   const inputRef = useRef(null);
@@ -19,7 +22,6 @@ export default function Questionnaire({ state, setState }) {
 
   // ── STEP 1: Business model ────────────────────────────────────────────────
   if (state.step === 1) {
-    // Fire "Tool Started" once on first render via a flag on state
     return (
       <div className="step">
         <StepDots current={1} total={5} />
@@ -97,26 +99,36 @@ export default function Questionnaire({ state, setState }) {
     );
   }
 
-  // ── STEP 3: Product domain ────────────────────────────────────────────────
+  // ── STEP 3: Product domain (multi-select) ─────────────────────────────────
   if (state.step === 3) {
+    const toggleDomain = (id) => {
+      if (state.domain.includes(id)) {
+        // Don't allow deselecting the last domain
+        if (state.domain.length === 1) return;
+        const newDomains = state.domain.filter(d => d !== id);
+        const remainingStandardMetrics = new Set(newDomains.flatMap(d => METRICS[d] || []));
+        // Keep metrics that are still in a remaining domain, or are custom (not in any standard list)
+        set({
+          domain: newDomains,
+          metrics: state.metrics.filter(m => remainingStandardMetrics.has(m) || !ALL_STANDARD_METRICS.has(m)),
+        });
+      } else {
+        set({ domain: [...state.domain, id] });
+      }
+    };
+
     return (
       <div className="step">
         <StepDots current={3} total={5} />
         <h1 className="step-h">What kind of product problems do you solve?</h1>
-        <p className="step-sub">Pick the area that best describes your day-to-day product work.</p>
+        <p className="step-sub">Select all that apply. Most PMs span more than one area.</p>
         <div className="social-nudge" dangerouslySetInnerHTML={{ __html: SOCIAL[3] }} />
         <div className="grid">
           {DOMAINS.map(d => (
             <div
               key={d.id}
-              className={'card' + (state.domain === d.id ? ' sel' : '')}
-              onClick={() => {
-                if (state.domain !== d.id) {
-                  set({ domain: d.id, metrics: [] });
-                } else {
-                  set({ domain: d.id });
-                }
-              }}
+              className={'card' + (state.domain.includes(d.id) ? ' sel' : '')}
+              onClick={() => toggleDomain(d.id)}
             >
               <span className="card-icon">{d.icon}</span>
               <div className="card-title">{d.title}</div>
@@ -128,7 +140,7 @@ export default function Questionnaire({ state, setState }) {
           <button className="btn btn-ghost" onClick={() => set({ step: 2 })}>Back</button>
           <button
             className="btn"
-            disabled={!state.domain}
+            disabled={state.domain.length === 0}
             onClick={() => { trackEvent('Step Completed', { step: '3' }); set({ step: 4 }); }}
           >Continue</button>
         </div>
@@ -136,10 +148,16 @@ export default function Questionnaire({ state, setState }) {
     );
   }
 
-  // ── STEP 4: Metrics (multi-select + custom) ───────────────────────────────
+  // ── STEP 4: Metrics (grouped by selected domain, multi-select + custom) ───
   if (state.step === 4) {
-    const standardMetrics = METRICS[state.domain] || [];
-    const customMetrics = state.metrics.filter(m => !standardMetrics.includes(m));
+    const domainGroups = state.domain.map(id => ({
+      id,
+      label: DOMAINS.find(d => d.id === id)?.title || id,
+      metrics: METRICS[id] || [],
+    }));
+
+    const allStandardInScope = new Set(domainGroups.flatMap(g => g.metrics));
+    const customMetrics = state.metrics.filter(m => !ALL_STANDARD_METRICS.has(m));
 
     const toggleMetric = (m) => {
       const next = state.metrics.includes(m)
@@ -166,27 +184,41 @@ export default function Questionnaire({ state, setState }) {
       <div className="step">
         <StepDots current={4} total={5} />
         <h1 className="step-h">What metrics does your team live and die by?</h1>
-        <p className="step-sub">Select all that apply. Pick the metrics that most directly represent success in your product area. Add your own below if something is missing.</p>
+        <p className="step-sub">Select all that apply. Add your own below if something is missing.</p>
         <div className="social-nudge" dangerouslySetInnerHTML={{ __html: SOCIAL[4] }} />
-        <div className="pills">
-          {standardMetrics.map(m => (
-            <div
-              key={m}
-              className={'pill' + (state.metrics.includes(m) ? ' sel' : '')}
-              onClick={() => toggleMetric(m)}
-            >{m}</div>
-          ))}
-          {customMetrics.map(m => (
-            <div key={m} className="pill sel">
-              {m}
-              <span
-                className="pill-remove"
-                title="Remove"
-                onClick={(e) => { e.stopPropagation(); removeCustom(m); }}
-              >×</span>
+
+        {domainGroups.map((group, i) => (
+          <div key={group.id}>
+            {domainGroups.length > 1 && (
+              <div className="metrics-group-label">{group.label}</div>
+            )}
+            <div className="pills">
+              {group.metrics.map(m => (
+                <div
+                  key={m}
+                  className={'pill' + (state.metrics.includes(m) ? ' sel' : '')}
+                  onClick={() => toggleMetric(m)}
+                >{m}</div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+
+        {customMetrics.length > 0 && (
+          <div className="pills" style={{ marginTop: '4px' }}>
+            {customMetrics.map(m => (
+              <div key={m} className="pill sel">
+                {m}
+                <span
+                  className="pill-remove"
+                  title="Remove"
+                  onClick={(e) => { e.stopPropagation(); removeCustom(m); }}
+                >×</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="pill-label">Not listed? Add your own (press Enter)</div>
         <div className="pill-add-row">
           <input
@@ -217,10 +249,10 @@ export default function Questionnaire({ state, setState }) {
 
     const handleSubmit = () => {
       if (!validEmail) return;
-      // Fire-and-forget Mailchimp call — do not await, do not block results render
+      // Fire-and-forget — pass primary domain to Mailchimp tag
       fetch('/.netlify/functions/subscribe', {
         method: 'POST',
-        body: JSON.stringify({ email: state.email, model: state.model, domain: state.domain }),
+        body: JSON.stringify({ email: state.email, model: state.model, domain: state.domain[0] }),
       });
       trackEvent('Email Submitted');
       set({ step: 'results' });

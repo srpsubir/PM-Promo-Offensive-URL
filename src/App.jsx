@@ -7,7 +7,7 @@ const initialState = {
   step: 1,
   model: null,
   b2b: null,
-  domain: null,
+  domain: [],      // array — multi-select, primary = domain[0]
   metrics: [],
   email: '',
 };
