@@ -250,7 +250,7 @@ export default function Questionnaire({ state, setState }) {
     const handleSubmit = () => {
       if (!validEmail) return;
       // Fire-and-forget — pass primary domain to Mailchimp tag
-      fetch('/.netlify/functions/subscribe', {
+      fetch('/api/subscribe', {
         method: 'POST',
         body: JSON.stringify({ email: state.email, model: state.model, domain: state.domain[0] }),
       });
