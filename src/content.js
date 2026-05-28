@@ -1,6 +1,25 @@
 // MAV-38 — All content extracted from pm-pl-connector-prototype.html
 // Acronyms expanded on first use throughout. Efficiency key used throughout.
 
+export const GATE_SCENARIOS = {
+  acquisition: {
+    q: '"We hit our new user targets two quarters running. But when I presented to the exec team, they asked what it cost us to acquire those users and I had no answer."',
+    a: 'That gap is why PMs stall before promotion. Your result shows exactly which P&L line your acquisition work moves, and the number your exec actually cares about.',
+  },
+  retention: {
+    q: '"Our DAU/MAU ratio improved significantly after the redesign. But I could not explain to leadership what that was worth in revenue terms or why they should prioritise it."',
+    a: 'That gap is why PMs stall before promotion. Your result shows exactly how engagement translates to revenue retention on the P&L, and the framing that makes your exec take notice.',
+  },
+  monetisation: {
+    q: '"I shipped a pricing change that increased average revenue per user by 12%. But I struggled to connect that to what it meant for gross margin or the bottom line."',
+    a: 'That gap is why PMs stall before promotion. Your result shows exactly which P&L lines your monetisation work moves, and the sentence that makes your exec see the full commercial picture.',
+  },
+  efficiency: {
+    q: '"I reduced resolution time by 88%. But I could not show my exec team what that saved in operating costs or why they should care."',
+    a: 'That gap is why PMs stall before promotion. Your result shows exactly which P&L line your work moves, and why your exec notices.',
+  },
+};
+
 export const MODELS = [
   { id: 'subscription', icon: '🔄', title: 'Subscription',              sub: 'Netflix, Spotify, Salesforce' },
   { id: 'ecommerce',    icon: '🛒', title: 'E-commerce / Transactional', sub: 'Amazon, ASOS, Gymshark' },
@@ -11,7 +30,7 @@ export const MODELS = [
 
 export const DOMAINS = [
   { id: 'acquisition',  icon: '📈', title: 'Acquisition',               sub: 'Getting new users or customers in the door' },
-  { id: 'retention',    icon: '🧲', title: 'Retention',                 sub: 'Keeping them active and reducing churn' },
+  { id: 'retention',    icon: '🧲', title: 'Engagement & Retention',    sub: 'Keeping them active and reducing churn' },
   { id: 'monetisation', icon: '💰', title: 'Monetisation',              sub: 'Extracting more revenue from existing users' },
   { id: 'efficiency',   icon: '🔧', title: 'Efficiency and Operations', sub: 'Reducing cost, improving reliability, streamlining how work gets done' },
 ];

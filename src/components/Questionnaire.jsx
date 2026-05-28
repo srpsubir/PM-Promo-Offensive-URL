@@ -1,7 +1,7 @@
 // MAV-35 — Questionnaire: 5 steps
 import { useState, useRef } from 'react';
 import StepDots from './StepDots';
-import { MODELS, DOMAINS, METRICS, SOCIAL } from '../content';
+import { MODELS, DOMAINS, METRICS, SOCIAL, GATE_SCENARIOS } from '../content';
 
 function trackEvent(name, props = {}) {
   if (typeof plausible !== 'undefined') {
@@ -246,6 +246,7 @@ export default function Questionnaire({ state, setState }) {
   // ── STEP 5: Email gate ────────────────────────────────────────────────────
   if (state.step === 5) {
     const validEmail = state.email.includes('@');
+    const scenario = GATE_SCENARIOS[state.domain[0]] || GATE_SCENARIOS.efficiency;
 
     const handleSubmit = () => {
       if (!validEmail) return;
@@ -266,8 +267,8 @@ export default function Questionnaire({ state, setState }) {
           <h2>Your result is ready</h2>
           <p>Enter your email and we will show you exactly how your product work connects to your company's P&L, and the sentence that will change how your CEO sees you.</p>
           <div className="gate-scenario">
-            <div className="gate-scenario-q">"I reduced resolution time by 88%. But I couldn't show my exec team what that saved in operating costs or why they should care."</div>
-            <div className="gate-scenario-a">That gap is why PMs stall before promotion. Your result shows exactly which P&L line your work moves, and why your exec notices.</div>
+            <div className="gate-scenario-q">{scenario.q}</div>
+            <div className="gate-scenario-a">{scenario.a}</div>
           </div>
           <div className="email-row">
             <input
