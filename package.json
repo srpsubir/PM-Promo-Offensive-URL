@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "vercel-build": "npm run build && npx playwright install chromium && npm run test:e2e"
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "react": "^19.2.6",
